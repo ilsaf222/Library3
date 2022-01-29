@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ListResevationViewModel>
+
+<h3>Все бронирования</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(k => k.Name)</th>
+            <th>@Html.DisplayNameFor(k => k.Author)</th>
+            <th>@Html.DisplayNameFor(k => k.Genre)</th>
+            <th>@Html.DisplayNameFor(k => k.Publisher)</th>
+            <th>@Html.DisplayNameFor(k => k.Status)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>@book.Publisher</td>
+                <td>@Library.Services.GetEmunName.GetName(book.Status)</td>
+                <td>
+                    @if (book.Status == Library.Domain.Entities.Status.Booked)
+                    {
+                        <a class="btn btn-warning" asp-action="GetBook" asp-controller="Librarian" asp-route-id="@book.BookId">Выдать</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-warning" asp-action="GetBook" asp-controller="Librarian" asp-route-id="@book.BookId">Возврат</a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

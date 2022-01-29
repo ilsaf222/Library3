@@ -1,0 +1,56 @@
+﻿@model EditBookViewModel
+
+
+@{
+    var authors = ((List<ListAuthorViewModel>)ViewBag.Authors).Select(c => new SelectListItem($"{c.Name}", c.Id.ToString(),
+                            Model?.AuthorId == c.Id));
+
+    var genres = ((List<ListGenreViewModel>)ViewBag.Genres).Select(c => new SelectListItem($"{c.Name}", c.Id.ToString(),
+    Model?.GenreId == c.Id));
+
+    var publishers = ((List<ListPublisherViewModel>)ViewBag.Publishers).Select(c => new SelectListItem($"{c.Name}",
+    c.Id.ToString(),
+    Model?.PublisherId == c.Id));
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditBook" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AuthorId" class="control-label"></label>
+                <select name="AuthorId" class="form-control" asp-items="@authors">
+                    <option selected="selected" value="0" disabled="disabled">Выберите автора</option>
+                </select>
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GenreId" class="control-label"></label>
+                <select name="GenreId" class="form-control" asp-items="@genres">
+                    <option selected="selected" value="0" disabled="disabled">Выберите жанр</option>
+                </select>
+                <span asp-validation-for="GenreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublisherId" class="control-label"></label>
+                <select name="PublisherId" class="form-control" asp-items="@publishers">
+                    <option selected="selected" value="0" disabled="disabled">Выберите жанр</option>
+                </select>
+                <span asp-validation-for="PublisherId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookImg" class="control-label"></label>
+                <input type="file" id="file" asp-for="BookImg" accept=".jpg, .jpeg, .png" />
+                <span asp-validation-for="BookImg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Добавить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

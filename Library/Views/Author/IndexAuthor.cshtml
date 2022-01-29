@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ListAuthorViewModel>
+
+<h3>Авторы</h3>
+<a class="btn btn-dark" asp-action="AddAuthor">Добавить автора</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(k => k.Name)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var author in Model)
+        {
+            <tr>
+                <td>@author.Name</td>
+                <td>
+                    <a class="btn btn-success" asp-action="EditAuthor" asp-route-id="@author.Id">Изменить</a>
+                    <a class="btn btn-danger" asp-action="DeleteAuthor" asp-route-id="@author.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

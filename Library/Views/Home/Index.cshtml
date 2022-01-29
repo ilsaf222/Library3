@@ -1,0 +1,82 @@
+﻿@model IEnumerable<ListBookViewModel>
+
+<h3>Книги</h3>
+<head>
+    <style>
+        .disabled {
+            pointer-events: none;
+        }
+
+        .sort {
+            display: flex;
+            margin: 10px;
+        }
+    </style>
+</head>
+<form asp-action="Index" asp-controller="Home" method="get">
+    <div class="sort">
+        <div class="sort">
+            <h5>Сортировать по:</h5>
+            <select name="sortsValue">
+                <option selected="selected" value="0" disabled="disabled">Выберите тип</option>
+                <option value="author">Автор</option>
+                <option value="genre">Жанр</option>
+                <option value="publisher">Издаетль</option>
+                <option value="name">Название книги</option>
+            </select>
+        </div>
+        <div class="sort">
+            <select name="findsValue" data="@ViewBag.SortsValue">
+                <option selected="selected" value="0" disabled="disabled">Выберите тип</option>
+                <option value="author">Автор</option>
+                <option value="genre">Жанр</option>
+                <option value="publisher">Издаетль</option>
+                <option value="name">Название книги</option>
+            </select>
+            <input type="text" name="findText" value="@ViewBag.FindText" />
+            <input type="submit" value="Поиск" />
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(k => k.Name)</th>
+            <th>@Html.DisplayNameFor(k => k.Author)</th>
+            <th>@Html.DisplayNameFor(k => k.Genre)</th>
+            <th>@Html.DisplayNameFor(k => k.Publisher)</th>
+            <th>@Html.DisplayNameFor(k => k.Status)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>@book.Publisher</td>
+                <td>@Library.Services.GetEmunName.GetName(book.Status)</td>
+                <td>
+                    <a class="btn btn-info" asp-action="BookInfo" asp-route-id="@book.Id">Подробнее</a>
+                    @if (@book.Status == Library.Domain.Entities.Status.Avaliable)
+                    {
+                        <a class="btn btn-danger" asp-action="ToBook" asp-controller="Order"
+                   asp-route-id="@book.Id">Забронировать</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-danger disabled" asp-action="ToBook" asp-controller="Order"
+                   asp-route-id="@book.Id">Забронировать</a>
+                    }
+                    <a class="btn btn-danger" asp-action="EditBook" asp-controller="Book" asp-controller="Librarian"
+                   asp-route-id="@book.Id">Изменить</a>
+                    <a class="btn btn-danger" asp-action="DeleteBook" asp-controller="Book" asp-controller="Librarian"
+                   asp-route-id="@book.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

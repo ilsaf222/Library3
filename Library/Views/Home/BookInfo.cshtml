@@ -1,0 +1,49 @@
+﻿@model ListBookInfoViewModel
+
+<h3>Подробнее</h3>
+
+<div>
+    <img src="@Model.ImageUrl" alt="@Model.Name" />
+    <h4>@Model.Name</h4>
+    <p>@Model.Author</p>
+    <p>@Model.Genre</p>
+    <p>@Model.Publisher</p>
+    <p>@Model.Status</p>
+    <form asp-action="LeaveFeedback" asp-controller="Order">
+        <input type="radio" name="grade" value="1" id="grade1" />
+        <label for="grade1">1</label>
+
+        <input type="radio" name="grade" value="2" id="grade2" />
+        <label for="grade2">2</label>
+
+        <input type="radio" name="grade" value="3" id="grade3" />
+        <label for="grade3">3</label>
+
+        <input type="radio" name="grade" value="4" id="grade4" />
+        <label for="grade4">4</label>
+
+        <input type="radio" name="grade" value="5" id="grade5" />
+        <label for="grade5">5</label>
+
+        <textarea name="commentText"></textarea>
+        <input type="hidden" value="@Model.Id" name="bookId" />
+        <input type="submit" value="Отправить" />
+    </form>
+    <div>
+        @if (ViewBag.Reviews != null)
+        {
+            @foreach (var item in ViewBag.Reviews)
+            {
+                <h3>@item.Name</h3>
+                <p>@item.Grade</p>
+                <p>@item.CommentText</p>
+            }
+        }
+        else
+        {
+            <h3>На данный момент нет отзывов!</h3>
+        }
+
+    </div>
+
+</div>

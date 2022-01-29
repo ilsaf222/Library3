@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ListGenreViewModel>
+
+<h3>Жанры</h3>
+
+<a class="btn btn-dark" asp-action="AddGenre">Добавить жанр</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(k => k.Name)</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var genre in Model)
+        {
+            <tr>
+                <td>@genre.Name</td>
+                <td>
+                    <a class="btn btn-success" asp-action="EditGenre" asp-route-id="@genre.Id">Изменить</a>
+                    <a class="btn btn-danger" asp-action="DeleteGenre" asp-route-id="@genre.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

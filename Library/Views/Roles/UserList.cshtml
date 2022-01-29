@@ -1,0 +1,18 @@
+﻿@model IEnumerable<LIstUserViewModel>
+
+<div class="container">
+    <h2>Все пользователи</h2>
+
+    <table class="table">
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <a class="p-2 text-dark" asp-controller="Role" asp-action="Index">Назад</a>
+</div>

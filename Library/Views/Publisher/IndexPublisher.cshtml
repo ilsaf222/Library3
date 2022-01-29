@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ListPublisherViewModel>
+
+<h3>Издатели</h3>
+<a class="btn btn-dark" asp-action="AddPublisher">ДОбавить</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(k => k.Name)</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var publisher in Model)
+        {
+            <tr>
+                <td>@publisher.Name</td>
+                <td>
+                    <a class="btn btn-success" asp-action="EditPublisher" asp-route-id="@publisher.Id">Изменить</a>
+                    <a class="btn btn-danger" asp-action="DeletePublisher" asp-route-id="@publisher.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
